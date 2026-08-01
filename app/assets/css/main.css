@@ -1,0 +1,249 @@
+/* ==========================================================
+   CSS Variables (Theme-aware)
+========================================================== */
+
+:root {
+  /* Dark Theme (default) */
+  --bg-primary: #111113;
+  --bg-secondary: #161618;
+  --bg-card: #1a1a1e;
+  --bg-elevated: #252529;
+
+  --text-primary: #f3f4f6;
+  --text-secondary: #d1d5db;
+  --text-muted: #6b7280;
+
+  --border-color: rgba(55, 65, 81, 0.5);
+  --border-light: #1f2937;
+
+  --scrollbar-track: #111113;
+  --scrollbar-thumb: #4b5563;
+  --scrollbar-thumb-hover: #22d3ee;
+
+  --selection-bg: rgba(168, 85, 247, 0.25);
+
+  --shadow-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Light Theme */
+html.light {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #f1f5f9;
+  --bg-card: #ffffff;
+  --bg-elevated: #e2e8f0;
+
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+
+  --border-color: rgba(148, 163, 184, 0.4);
+  --border-light: #e2e8f0;
+
+  --scrollbar-track: #f1f5f9;
+  --scrollbar-thumb: #94a3b8;
+  --scrollbar-thumb-hover: #7c3aed;
+
+  --selection-bg: rgba(168, 85, 247, 0.2);
+
+  --shadow-color: rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================================================
+   Scrollbar (Theme-aware)
+========================================================== */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 9999px;
+  transition: background-color 0.25s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+/* Firefox */
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+}
+
+/* ==========================================================
+   Global
+========================================================== */
+
+body {
+  overflow-x: hidden;
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+}
+
+
+.matrix-canvas {
+  pointer-events: none;
+  user-select: none;
+  filter: blur(0.2px);
+  width: 100vw !important;
+  height: 100vh !important;
+  top: 0 !important;
+  left: 0 !important;
+}
+
+/* ==========================================================
+   FORCE STACKING — Konten di atas Matrix Rain
+========================================================== */
+
+main {
+  position: relative !important;
+  z-index: 10 !important;
+}
+
+footer {
+  position: relative !important;
+  z-index: 20 !important;
+}
+
+nav {
+  position: relative !important;
+  z-index: 50 !important;
+}
+
+/* Elemen cursor tetap di atas semua */
+.fixed.pointer-events-none {
+  z-index: 999 !important;
+}
+
+/* ==========================================================
+   Page Transition
+========================================================== */
+
+.page-enter-active,
+.page-leave-active {
+  will-change: opacity, transform;
+  transition:
+    opacity 250ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 250ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.page-enter-from {
+  opacity: 0;
+  transform: scale(0.998);
+}
+
+.page-leave-to {
+  opacity: 0;
+  transform: scale(1.002);
+}
+
+/* ==========================================================
+   Mobile Drawer
+========================================================== */
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.25s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.drawer-enter-active,
+.drawer-leave-active {
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.drawer-enter-from,
+.drawer-leave-to {
+  transform: translateX(100%);
+}
+
+/* ==========================================================
+   Selection (Theme-aware)
+========================================================== */
+
+::selection {
+  background: var(--selection-bg);
+}
+
+/* ==========================================================
+   Scroll Reveal
+========================================================== */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px) scale(0.98);
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* ==========================================================
+   Utility: Smooth Card Hover
+========================================================== */
+
+.card-hover {
+  transition:
+    border-color 0.3s ease,
+    background-color 0.3s ease,
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+}
+
+/* Dark mode hover */
+html:not(.light) .card-hover:hover {
+  border-color: rgba(75, 85, 99, 0.6);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Light mode hover */
+html.light .card-hover:hover {
+  border-color: rgba(148, 163, 184, 0.6);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+}
+
+/* ==========================================================
+   Glow Text (Theme-aware)
+========================================================== */
+
+.glow-text {
+  background: linear-gradient(135deg, #a855f7, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ==========================================================
+   Scroll Progress Bar
+========================================================== */
+
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #a855f7, #7c3aed);
+  z-index: 60;
+  transition: width 0.15s ease;
+}
