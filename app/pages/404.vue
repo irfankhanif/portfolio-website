@@ -7,7 +7,7 @@
     <div class="relative z-10 text-center max-w-2xl mx-auto">
       <div class="flex justify-center">
         <img
-          src="assets/images/icon/ic-404.svg"
+          src="~/assets/images/icon/ic-404.svg"
           alt="404 Illustration"
           class="w-64 sm:w-80 md:w-96 h-auto select-none pointer-events-none"
           draggable="false"
@@ -32,7 +32,7 @@
       <div class="flex flex-wrap justify-center gap-3 mt-8">
         <NuxtLink
           to="/"
-          class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-purple-200 text-purple-900 font-semibold hover:bg-purple-300 transition-all duration-300 hover:scale-105 active:scale-95"
+          class="inline-flex items-center gap-2 px-4 py-2.5 text-sm sm:px-6 sm:py-3 sm:text-base rounded-lg bg-purple-200 text-purple-900 font-semibold hover:bg-purple-300 transition-all duration-300 hover:scale-105 active:scale-95"
         >
           <svg
             class="w-5 h-5"
@@ -52,7 +52,7 @@
 
         <NuxtLink
           to="/projects"
-          class="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-[var(--border-color)] hover:bg-[var(--bg-secondary)] transition-all duration-300 hover:scale-105 active:scale-95 text-[var(--text-secondary)]"
+          class="inline-flex items-center gap-2 px-4 py-2.5 text-sm sm:px-6 sm:py-3 sm:text-base rounded-lg border border-[var(--border-color)] hover:bg-[var(--bg-secondary)] transition-all duration-300 hover:scale-105 active:scale-95 text-[var(--text-secondary)]"
         >
           <svg
             class="w-5 h-5"
@@ -83,8 +83,11 @@
 </template>
 
 <script setup lang="ts">
-definePageMeta({
-  layout: "default",
+definePageMeta({ layout: "default" });
+
+useSeoMeta({
+  title: "404 — Page Not Found",
+  robots: "noindex",
 });
 </script>
 
