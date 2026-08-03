@@ -19,7 +19,7 @@
               >
             </div>
             <h1
-              class="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight"
+              class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight leading-tight"
             >
               Hi, I'm
               <span class="aurora-text"> Irfan Khanif </span>
