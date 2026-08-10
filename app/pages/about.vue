@@ -46,24 +46,43 @@
             <div class="text-gray-400">
               <span class="text-purple-400">></span> system.init(<span
                 class="text-green-400"
-                >"Irfan Khanif"</span
+                >"Irfan Khanif Fauzi"</span
               >)
             </div>
+
             <div class="text-gray-400">
-              <span class="text-purple-400">></span> status:
+              <span class="text-purple-400">></span> role:
+              <span class="text-green-400">"Frontend Developer"</span>
+            </div>
+
+            <div class="text-gray-400">
+              <span class="text-purple-400">></span> education:
               <span class="text-green-400"
-                >"Obsessed with performance and elegant UI architectures"</span
+                >"Bachelor of Informatics Engineering"</span
               >
+            </div>
+
+            <div class="text-gray-400">
+              <span class="text-purple-400">></span> university:
+              <span class="text-green-400"
+                >"Universitas Muhammadiyah Purwokerto"</span
+              >
+            </div>
+
+            <div class="text-gray-400">
+              <span class="text-purple-400">></span> location:
+              <span class="text-green-400">"Indonesia"</span>
             </div>
           </div>
 
           <p class="text-gray-400 mb-10 text-sm md:text-base leading-relaxed">
-            With over 6 years of technical craftsmanship, I specialize in
-            bridging the gap between complex engineering and intuitive user
-            interfaces. My approach is rooted in the belief that code should be
-            as clean as the visuals it produces. I don't just build websites; I
-            engineer scalable digital systems that stand the test of time and
-            traffic.
+            I'm a Frontend Developer with a passion for building modern,
+            responsive, and user-friendly web applications. Combining my
+            background in graphic design with frontend development, I create
+            intuitive digital experiences that balance aesthetics, performance,
+            and maintainable code. I enjoy learning new technologies, solving
+            real-world problems, and continuously improving the products I
+            build.
           </p>
 
           <div class="flex items-center gap-8 border-t border-gray-800 pt-6">
@@ -208,22 +227,16 @@ import { useReveal } from "~/composables/useReveal";
 // Data Timeline & Core Values
 const timeline = [
   {
-    role: "Senior Frontend Engineer",
-    period: "2021 — Present",
-    stack: "TECH STACK: REACT, NEXT.JS, TYPESCRIPT, TAILWIND",
-    desc: "Leading the frontend architectural decisions for high-scale enterprise applications. Focused on optimizing Core Web Vitals and implementing robust Design Systems that serve multiple product lines.",
+    role: "Frontend Developer",
+    period: "2025 — Present",
+    stack: "TECH STACK: VUE, TYPESCRIPT, TAILWIND CSS",
+    desc: "Create scalable and maintainable frontend applications using modern web technologies. Deliver intuitive user experiences through responsive design, reusable components, and performance-focused development practices.",
   },
   {
-    role: "UI Developer",
-    period: "2019 — 2021",
-    stack: "FOCUS: ANIMATION, CSS-IN-JS, COMPONENT LIBRARIES",
-    desc: "Transformed complex Figma prototypes into interactive, pixel-perfect reality. Built a custom UI library used by over 50 developers internally, reducing time-to-market by 30%.",
-  },
-  {
-    role: "Junior Web Developer",
-    period: "2017 — 2019",
-    stack: "FOUNDATION: HTML5, CSS3, JAVASCRIPT, PHP",
-    desc: "Mastered the fundamentals of the web. Responsible for maintaining legacy codebases while advocating for modern JavaScript adoption within the small agency team.",
+    role: "Graphic Designer",
+    period: "2024 — 2025",
+    stack: "FOCUS: BRANDING, SOCIAL MEDIA, PRINT & DIGITAL DESIGN",
+    desc: "Designed creative visual assets for branding, social media, marketing campaigns, and promotional materials. Collaborated with clients to deliver engaging designs that strengthened brand identity and effectively communicated key messages.",
   },
 ];
 

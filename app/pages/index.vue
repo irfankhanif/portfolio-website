@@ -19,7 +19,7 @@
               >
             </div>
             <h1
-              class="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight"
+              class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight leading-tight"
             >
               Hi, I'm
               <span class="aurora-text"> Irfan Khanif </span>
@@ -38,11 +38,12 @@
               the gap between sophisticated design and robust engineering.
             </p>
             <div class="flex items-center gap-4">
-              <button
-                class="bg-purple-200 text-purple-900 px-6 py-3 rounded text-sm font-bold hover:bg-purple-300 transition-colors"
+              <NuxtLink
+                to="/projects"
+                class="inline-flex items-center justify-center bg-purple-200 text-purple-900 px-6 py-3 rounded text-sm font-bold hover:bg-purple-300 transition-colors"
               >
                 View Projects
-              </button>
+              </NuxtLink>
               <button
                 class="flex items-center gap-2 px-6 py-3 rounded border border-[var(--border-color)] hover:bg-[var(--bg-secondary)] transition-colors text-sm font-medium text-[var(--text-primary)]"
               >

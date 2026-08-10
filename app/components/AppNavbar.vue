@@ -22,39 +22,26 @@
         </NuxtLink>
 
         <!-- Desktop Links -->
-        <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <div
+          ref="navRef"
+          class="hidden md:flex items-center gap-1 text-sm font-medium relative p-1 rounded-full nav-glass-wrap"
+        >
+          <!-- Liquid glass pill -->
+          <div ref="pillRef" class="nav-glass-pill" />
+
           <NuxtLink
             v-for="link in navLinks"
             :key="link.to"
+            :ref="(el) => setLinkRef(el, link.to)"
             :to="link.to"
-            class="relative group py-1 transition-colors duration-300"
+            class="relative z-10 px-4 py-2 rounded-full transition-colors duration-200 whitespace-nowrap"
             :class="
               route.path === link.to
                 ? 'text-[var(--text-primary)]'
-                : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+                : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
             "
           >
             {{ link.label }}
-            <span
-              class="absolute -bottom-0.5 left-0 h-[2px] rounded-full bg-gradient-to-r from-purple-400 to-purple-600 transition-all duration-300"
-              :class="
-                route.path === link.to
-                  ? 'w-full opacity-100'
-                  : 'w-0 opacity-0 group-hover:w-full group-hover:opacity-100'
-              "
-            ></span>
-            <span
-              class="absolute -bottom-0.5 left-0 h-[2px] rounded-full bg-purple-400 blur-sm transition-all duration-300"
-              :class="
-                route.path === link.to
-                  ? 'w-full opacity-60'
-                  : 'w-0 opacity-0 group-hover:w-full group-hover:opacity-60'
-              "
-            ></span>
-            <span
-              v-if="route.path === link.to"
-              class="absolute -left-3 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-purple-400"
-            ></span>
           </NuxtLink>
         </div>
 
@@ -63,7 +50,7 @@
           <!-- Social Icons -->
           <div class="flex items-center gap-2 mr-2">
             <a
-              href="https://github.com"
+              href="https://github.com/irfankhanif/"
               target="_blank"
               rel="noopener noreferrer"
               class="text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors p-1"
@@ -76,7 +63,7 @@
               </svg>
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/irfankhaniffauzi/"
               target="_blank"
               rel="noopener noreferrer"
               class="text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors p-1"
@@ -104,13 +91,7 @@
           </div>
 
           <!-- Theme Toggle -->
-          <button
-            @click="toggleTheme"
-            class="text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors p-1 text-lg"
-            aria-label="Toggle theme"
-          >
-            {{ theme === "dark" ? "☀️" : "🌙" }}
-          </button>
+          <ThemeToggle />
 
           <!-- Resume Button -->
           <button
@@ -202,13 +183,14 @@
 
         <div class="mt-auto">
           <div class="border-t border-[var(--border-color)] pt-6 space-y-3">
-            <button
-              @click="toggleTheme"
-              class="flex w-full items-center gap-3 rounded-lg px-4 py-3 text-[var(--text-secondary)] transition hover:bg-white/5 hover:text-[var(--text-primary)]"
-            >
-              <span>{{ theme === "dark" ? "☀️" : "🌙" }}</span>
-              <span>Switch Theme</span>
-            </button>
+            <!-- Theme Toggle Row -->
+            <div class="flex items-center justify-between px-4 py-3">
+              <span class="text-sm text-[var(--text-secondary)]"
+                >Switch theme</span
+              >
+              <ThemeToggle />
+            </div>
+
             <div class="flex gap-4 px-4 py-2">
               <a
                 href="https://github.com"
@@ -256,17 +238,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted, onUnmounted } from "vue";
+import { ref, watch, onMounted, onUnmounted, nextTick } from "vue";
 import { useRoute } from "vue-router";
-import { useTheme } from "~/composables/useTheme";
+import ThemeToggle from "~/components/ThemeToggle.vue";
 
-const { theme, toggleTheme } = useTheme();
-// State
 const route = useRoute();
 const mobileMenu = ref(false);
 const isScrolled = ref(false);
 const scrollProgress = ref(0);
 const headerRef = ref<HTMLElement | null>(null);
+
+// Nav pill refs
+const navRef = ref<HTMLElement | null>(null);
+const pillRef = ref<HTMLElement | null>(null);
+const linkRefs = ref<Record<string, HTMLElement>>({});
 
 const navLinks = [
   { to: "/", label: "Home" },
@@ -274,6 +259,27 @@ const navLinks = [
   { to: "/projects", label: "Projects" },
   { to: "/blog", label: "Blog" },
 ];
+
+const setLinkRef = (el: any, to: string) => {
+  if (el?.$el) linkRefs.value[to] = el.$el;
+};
+
+const movePill = (animate = true) => {
+  const nav = navRef.value;
+  const pill = pillRef.value;
+  const activeEl = linkRefs.value[route.path];
+  if (!nav || !pill || !activeEl) return;
+
+  const navRect = nav.getBoundingClientRect();
+  const linkRect = activeEl.getBoundingClientRect();
+
+  pill.style.transition = animate
+    ? "width 0.4s cubic-bezier(0.34,1.3,0.64,1), transform 0.4s cubic-bezier(0.34,1.3,0.64,1)"
+    : "none";
+
+  pill.style.width = `${linkRect.width}px`;
+  pill.style.transform = `translateX(${linkRect.left - navRect.left - 4}px)`;
+};
 
 const toggleMobileMenu = () => {
   mobileMenu.value = !mobileMenu.value;
@@ -290,12 +296,25 @@ const handleScroll = () => {
   }
 };
 
-// Lifecycle
-onMounted(() => {
+const onKeydown = (event: KeyboardEvent) => {
+  if (event.key === "Escape") {
+    mobileMenu.value = false;
+  }
+};
+
+onMounted(async () => {
   if (import.meta.client) {
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
     window.addEventListener("keydown", onKeydown);
+
+    await nextTick();
+    movePill(false);
+    await nextTick();
+    if (pillRef.value) {
+      pillRef.value.style.transition =
+        "width 0.4s cubic-bezier(0.34,1.3,0.64,1), transform 0.4s cubic-bezier(0.34,1.3,0.64,1)";
+    }
   }
 });
 
@@ -303,11 +322,10 @@ onUnmounted(() => {
   if (import.meta.client) {
     window.removeEventListener("scroll", handleScroll);
     window.removeEventListener("keydown", onKeydown);
-    document.body.style.overflow = ""; // reset
+    document.body.style.overflow = "";
   }
 });
 
-// Watchers (dengan guard)
 watch(mobileMenu, (isOpen) => {
   if (import.meta.client) {
     document.body.style.overflow = isOpen ? "hidden" : "";
@@ -316,17 +334,12 @@ watch(mobileMenu, (isOpen) => {
 
 watch(
   () => route.fullPath,
-  () => {
+  async () => {
     mobileMenu.value = false;
+    await nextTick();
+    movePill(true);
   },
 );
-
-// Keyboard handler
-const onKeydown = (event: KeyboardEvent) => {
-  if (event.key === "Escape") {
-    mobileMenu.value = false;
-  }
-};
 </script>
 
 <style scoped>
@@ -346,7 +359,29 @@ const onKeydown = (event: KeyboardEvent) => {
 .drawer-leave-to {
   transform: translateX(100%);
 }
-button.md\\:hidden span {
+button.md\:hidden span {
   background-color: var(--text-secondary);
+}
+
+.nav-glass-wrap {
+  background: rgba(255, 255, 255, 0.06);
+  border: 0.5px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-glass-pill {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  height: calc(100% - 8px);
+  border-radius: 999px;
+  pointer-events: none;
+  z-index: 0;
+  backdrop-filter: blur(12px) saturate(1.6);
+  -webkit-backdrop-filter: blur(12px) saturate(1.6);
+  background: rgba(168, 139, 250, 0.18);
+  border: 0.5px solid rgba(168, 139, 250, 0.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 2px 12px rgba(139, 92, 246, 0.2);
 }
 </style>
