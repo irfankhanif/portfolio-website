@@ -271,6 +271,16 @@ const allProjects: Project[] = [
     status: "LIVE",
     slug: "neon-memory", // ← slug untuk routing ke /games/neon-memory
   },
+  {
+    id: 10,
+    title: "Typing Speed Test",
+    description:
+      "Test your typing speed and accuracy. Built with Vue 3 and Web Audio API.",
+    tech: ["Vue.js", "Tailwind CSS", "TypeScript", "Web Audio API"],
+    category: "Web",
+    status: "LIVE",
+    slug: "typing-speed", // ← slug untuk routing ke /games/typing-speed
+  },
 ];
 
 // ============================================================

@@ -57,6 +57,13 @@ const GAME_REGISTRY = {
       () => import("~/components/games/GameMemory.vue"),
     ),
   },
+  "typing-speed": {
+    title: "Typing Speed Test",
+    description: "Test your typing speed and accuracy.",
+    component: defineAsyncComponent(
+      () => import("~/components/games/GameTyping.vue"),
+    ),
+  },
   // chess: {
   //   title: "Chess",
   //   description: "Play chess against an AI.",
